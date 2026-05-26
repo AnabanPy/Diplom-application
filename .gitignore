@@ -6,15 +6,15 @@ __pycache__/
 venv/
 .env
 
-# .NET / Visual Studio
+# .NET / Visual Studio (исходная сборка — не в git)
 bin/
 obj/
 *.user
 *.suo
 .vs/
-*.dll
-*.exe
-!WasteAccountingClient.CSharp/Запуск.bat
+
+# Готовая сборка для GitHub лежит в dist/ — коммитим
+# (глобально *.exe/*.dll не игнорируем: иначе dist не попадёт в репозиторий)
 
 # IDE
 .idea/

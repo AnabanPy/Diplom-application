@@ -10,7 +10,18 @@
 
 ## Запуск
 
-**Проще всего:** дважды щёлкните файл `Запуск.bat` в папке `WasteAccountingClient.CSharp`.
+### Без установки SDK (готовый .exe из репозитория)
+
+1. Установите [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) (если ещё не установлен).
+2. Запустите:
+
+`WasteAccountingClient.CSharp\dist\win-x64\WasteAccountingClient.exe`
+
+### Разработка
+
+**Проще всего:** дважды щёлкните `Запуск.bat` в папке `WasteAccountingClient.CSharp`.
+
+Пересобрать папку `dist` для GitHub: `Собрать-релиз.bat`.
 
 Или из командной строки:
 
@@ -18,8 +29,6 @@
 cd WasteAccountingClient.CSharp
 dotnet run --project WasteAccountingClient
 ```
-
-Или запустите `WasteAccountingClient\bin\Debug\net8.0-windows\WasteAccountingClient.exe` (после сборки).
 
 Из Visual Studio: откройте `WasteAccountingClient.sln` и нажмите F5.
 
