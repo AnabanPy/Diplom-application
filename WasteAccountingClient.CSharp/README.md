@@ -5,23 +5,20 @@
 ## Требования
 
 - Windows 10 / 11
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) — для запуска `dist\...\exe`
 - Подключение к интернету (API: `http://178.57.217.79:8080/api/v1`)
+- SDK нужен только для разработки
 
-## Запуск
+## Запуск (в т.ч. после clone с GitHub)
 
-### Без установки SDK (готовый .exe из репозитория)
+1. Установите **Desktop Runtime** (ссылка выше).
+2. Дважды щёлкните **`Run.bat`** в этой папке (или exe ниже).
 
-1. Установите [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) (если ещё не установлен).
-2. Запустите:
-
-`WasteAccountingClient.CSharp\dist\win-x64\WasteAccountingClient.exe`
+`dist\win-x64\WasteAccountingClient.exe`
 
 ### Разработка
 
-**Проще всего:** дважды щёлкните `Запуск.bat` в папке `WasteAccountingClient.CSharp`.
-
-Пересобрать папку `dist` для GitHub: `Собрать-релиз.bat`.
+Пересобрать `dist` для GitHub: `Собрать-релиз.bat` или `dotnet publish`.
 
 Или из командной строки:
 
