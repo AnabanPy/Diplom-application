@@ -1,0 +1,32 @@
+<Window x:Class="WasteAccountingClient.SplashWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Загрузка"
+        Height="220" Width="420"
+        WindowStyle="None"
+        Background="White"
+        ShowInTaskbar="True"
+        Topmost="True"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Border Background="White" CornerRadius="16" Effect="{StaticResource ElevatedShadow}" Padding="32,28">
+        <StackPanel>
+            <Border Width="56" Height="56" CornerRadius="28" HorizontalAlignment="Center"
+                    Background="{StaticResource HeaderGradient}" Margin="0,0,0,16">
+                <TextBlock Text="♻" FontSize="28" Foreground="White"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <TextBlock x:Name="MessageText"
+                       Text="Загрузка модуля учёта отходов..."
+                       FontSize="14" FontWeight="SemiBold"
+                       Foreground="{StaticResource TextPrimaryBrush}"
+                       HorizontalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Text="Подключение к серверу..."
+                       FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"
+                       HorizontalAlignment="Center" Margin="0,6,0,16"/>
+            <ProgressBar Height="4" IsIndeterminate="True"
+                         Foreground="{StaticResource PrimaryBrush}"
+                         Background="#e2e8f0" BorderThickness="0"/>
+        </StackPanel>
+    </Border>
+</Window>

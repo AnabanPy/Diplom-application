@@ -1,0 +1,47 @@
+﻿<Window x:Class="WasteAccountingClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowState="Maximized"
+        MinHeight="640" MinWidth="1000">
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Background="{StaticResource HeaderGradient}" Padding="24,18">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="HeaderTitle"
+                               Text="Программный комплекс по учёту и переработке промышленных отходов"
+                               FontSize="17" FontWeight="SemiBold" Foreground="White"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
+                    <Border Background="{StaticResource HeaderChipBackgroundBrush}"
+                            CornerRadius="12" Padding="12,8" Margin="0,0,10,0"
+                            BorderBrush="#cbd5e1" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="36" Height="36" CornerRadius="18"
+                                    Background="#ecfdf5" BorderBrush="#99f6e4" BorderThickness="1"
+                                    Margin="0,0,10,0">
+                                <TextBlock x:Name="UserIcon" Text="👤" FontSize="16"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock x:Name="UserNameText" FontWeight="SemiBold"
+                                           Foreground="{StaticResource HeaderChipForegroundBrush}" FontSize="13"/>
+                                <TextBlock x:Name="UserRoleText" FontSize="11"
+                                           Foreground="{StaticResource HeaderChipSubtextBrush}" Margin="0,2,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <Button Content="Выйти" Style="{StaticResource HeaderLogoutButton}"
+                            Click="LogoutButton_Click"
+                            ToolTip="Вернуться к окну авторизации"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <TabControl x:Name="MainTabs" Margin="16,12,16,16" Background="Transparent"/>
+    </DockPanel>
+</Window>
