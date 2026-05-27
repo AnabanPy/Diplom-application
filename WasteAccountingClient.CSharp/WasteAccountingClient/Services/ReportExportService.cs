@@ -7,37 +7,23 @@ using WasteAccountingClient.Models;
 
 namespace WasteAccountingClient.Services;
 
+/// <summary>Заголовки Excel совпадают с колонками вкладки «Отчёты».</summary>
 public static class ReportExportService
 {
-    private static string ReportsDirectory
-    {
-        get
-        {
-            var desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            var dir = System.IO.Path.Combine(desktop, "Отчеты");
-            System.IO.Directory.CreateDirectory(dir);
-            return dir;
-        }
-    }
+    public static readonly string[] ExcelHeaders =
+    [
+        "Код", "Наименование", "Код ФККО", "Кл.", "Поступило", "Перераб.", "Вывезено", "Остаток", "Дата", "Статус", "Цех"
+    ];
 
-    public static string ExportExcel(IReadOnlyList<BatchDto> batches)
+    public static void ExportExcel(IReadOnlyList<BatchDto> batches, string filePath)
     {
-        var path = System.IO.Path.Combine(ReportsDirectory, $"report_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx");
-
         using var wb = new XLWorkbook();
         var ws = wb.Worksheets.Add("Отчет по партиям");
 
-        var headers = new[]
-        {
-            "Код партии", "Наименование отхода", "Класс опасности",
-            "Поступило (т)", "Переработано (т)", "Вывезено (т)", "Остаток (т)",
-            "Код ФККО", "Дата поступления", "Статус", "Цех-источник"
-        };
-
-        for (var col = 0; col < headers.Length; col++)
+        for (var col = 0; col < ExcelHeaders.Length; col++)
         {
             var cell = ws.Cell(1, col + 1);
-            cell.Value = headers[col];
+            cell.Value = ExcelHeaders[col];
             cell.Style.Font.Bold = true;
             cell.Style.Font.FontColor = XLColor.White;
             cell.Style.Fill.BackgroundColor = XLColor.FromHtml("#0066cc");
@@ -50,28 +36,24 @@ public static class ReportExportService
             var r = row + 2;
             ws.Cell(r, 1).Value = batch.Code ?? "";
             ws.Cell(r, 2).Value = batch.Name ?? "";
-            ws.Cell(r, 3).Value = StatusTranslations.HazardToRoman(batch.HazardClass);
-            ws.Cell(r, 4).Value = batch.VolumeTons ?? 0;
-            ws.Cell(r, 5).Value = batch.ProcessedTons ?? 0;
-            ws.Cell(r, 6).Value = batch.DisposedTons ?? 0;
-            ws.Cell(r, 7).Value = batch.RemainingTons ?? 0;
-            ws.Cell(r, 8).Value = batch.FkkoCode ?? "";
+            ws.Cell(r, 3).Value = batch.FkkoCode ?? "";
+            ws.Cell(r, 4).Value = StatusTranslations.HazardToRoman(batch.HazardClass);
+            ws.Cell(r, 5).Value = batch.VolumeTons ?? 0;
+            ws.Cell(r, 6).Value = batch.ProcessedTons ?? 0;
+            ws.Cell(r, 7).Value = batch.DisposedTons ?? 0;
+            ws.Cell(r, 8).Value = batch.RemainingTons ?? 0;
             ws.Cell(r, 9).Value = batch.ReceivedAt?.Length >= 10 ? batch.ReceivedAt[..10] : "";
             ws.Cell(r, 10).Value = StatusTranslations.ToRu(batch.Status);
             ws.Cell(r, 11).Value = batch.SourceDepartment ?? "";
         }
 
         ws.Columns().AdjustToContents();
-        wb.SaveAs(path);
-        return path;
+        wb.SaveAs(filePath);
     }
 
-    public static string ExportWordAct(BatchDto batch)
+    public static void ExportWordAct(BatchDto batch, string filePath)
     {
-        var path = System.IO.Path.Combine(ReportsDirectory,
-            $"act_{batch.Code}_{DateTime.Now:yyyyMMdd_HHmmss}.docx");
-
-        using var doc = WordprocessingDocument.Create(path, WordprocessingDocumentType.Document);
+        using var doc = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document);
         var mainPart = doc.AddMainDocumentPart();
         mainPart.Document = new Document(new Body());
         var body = mainPart.Document.Body!;
@@ -94,7 +76,6 @@ public static class ReportExportService
         AddParagraph(body, "От цеха-источника: ___________________");
 
         mainPart.Document.Save();
-        return path;
     }
 
     private static void AddParagraph(Body body, string text, bool bold = false, bool center = false)
@@ -108,5 +89,14 @@ public static class ReportExportService
             props.Justification = new Justification { Val = JustificationValues.Center };
 
         body.Append(new Paragraph(props, run));
+    }
+
+    /// <summary>Убирает недопустимые для имени файла символы.</summary>
+    public static string SanitizeFileName(string name)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        var chars = name.Select(c => invalid.Contains(c) ? '_' : c).ToArray();
+        var s = new string(chars).Trim();
+        return string.IsNullOrEmpty(s) ? "batch" : s;
     }
 }

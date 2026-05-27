@@ -34,8 +34,20 @@ public partial class OperationsTab : UserControl, IRefreshableTab
         OperationsGrid.Columns.Add(new DataGridTextColumn { Header = "Тип", Binding = new System.Windows.Data.Binding("Type"), Width = 120 });
         OperationsGrid.Columns.Add(new DataGridTextColumn { Header = "Т (тонн)", Binding = new System.Windows.Data.Binding("Quantity"), Width = 90 });
         OperationsGrid.Columns.Add(new DataGridTextColumn { Header = "Дата", Binding = new System.Windows.Data.Binding("Date"), Width = 130 });
-        OperationsGrid.Columns.Add(new DataGridTextColumn { Header = "Пользователь", Binding = new System.Windows.Data.Binding("User"), Width = 120 });
-        OperationsGrid.Columns.Add(new DataGridTextColumn { Header = "Примечание", Binding = new System.Windows.Data.Binding("Notes"), Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
+        OperationsGrid.Columns.Add(new DataGridTextColumn
+        {
+            Header = "Пользователь",
+            Binding = new System.Windows.Data.Binding("User"),
+            Width = new DataGridLength(1, DataGridLengthUnitType.Star),
+            MinWidth = 100
+        });
+        OperationsGrid.Columns.Add(new DataGridTextColumn
+        {
+            Header = "Примечание",
+            Binding = new System.Windows.Data.Binding("Notes"),
+            Width = new DataGridLength(2, DataGridLengthUnitType.Star),
+            MinWidth = 160
+        });
     }
 
     public async Task LoadDataAsync()

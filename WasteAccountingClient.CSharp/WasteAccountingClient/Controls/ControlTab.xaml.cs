@@ -20,7 +20,6 @@ public partial class ControlTab : UserControl, IRefreshableTab
         {
             ConfirmButton.Visibility = Visibility.Collapsed;
             RejectButton.Visibility = Visibility.Collapsed;
-            ReadOnlyHint.Visibility = Visibility.Visible;
         }
 
         SetupColumns();
@@ -32,11 +31,23 @@ public partial class ControlTab : UserControl, IRefreshableTab
         PendingGrid.Columns.Clear();
         PendingGrid.Columns.Add(new DataGridTextColumn { Header = "ID", Binding = new System.Windows.Data.Binding("Id"), Width = 60 });
         PendingGrid.Columns.Add(new DataGridTextColumn { Header = "Код", Binding = new System.Windows.Data.Binding("Code"), Width = 80 });
-        PendingGrid.Columns.Add(new DataGridTextColumn { Header = "Наименование", Binding = new System.Windows.Data.Binding("Name"), Width = 280 });
+        PendingGrid.Columns.Add(new DataGridTextColumn
+        {
+            Header = "Наименование",
+            Binding = new System.Windows.Data.Binding("Name"),
+            Width = new DataGridLength(2, DataGridLengthUnitType.Star),
+            MinWidth = 180
+        });
         PendingGrid.Columns.Add(new DataGridTextColumn { Header = "Кл.", Binding = new System.Windows.Data.Binding("Hazard"), Width = 50 });
         PendingGrid.Columns.Add(new DataGridTextColumn { Header = "Объем (т)", Binding = new System.Windows.Data.Binding("Volume"), Width = 85 });
-        PendingGrid.Columns.Add(new DataGridTextColumn { Header = "Цех", Binding = new System.Windows.Data.Binding("Source"), Width = 120 });
-        PendingGrid.Columns.Add(new DataGridTextColumn { Header = "Статус", Binding = new System.Windows.Data.Binding("Status"), Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
+        PendingGrid.Columns.Add(new DataGridTextColumn { Header = "Цех", Binding = new System.Windows.Data.Binding("Source"), Width = 110, MinWidth = 90 });
+        PendingGrid.Columns.Add(new DataGridTextColumn
+        {
+            Header = "Статус",
+            Binding = new System.Windows.Data.Binding("Status"),
+            Width = new DataGridLength(1, DataGridLengthUnitType.Star),
+            MinWidth = 100
+        });
     }
 
     public async Task LoadDataAsync()
@@ -91,7 +102,7 @@ public partial class ControlTab : UserControl, IRefreshableTab
             return;
         }
 
-        var reason = InputDialog.Show("Укажите причину (мин. 3 символа):", "Причина отклонения", Window.GetWindow(this));
+        var reason = InputDialog.Show("Укажите причину отклонения:", "Причина отклонения", Window.GetWindow(this));
         if (string.IsNullOrWhiteSpace(reason) || reason.Trim().Length < 3) return;
 
         try

@@ -19,7 +19,7 @@ public partial class RegisterTab : UserControl, IRefreshableTab
     private const int LargeCatalogThreshold = 100;
     private const int SearchMinLength = 2;
     private const int MaxListResults = 200;
-    private const string SearchPlaceholder = "Поиск по коду или названию (мин. 2 символа)...";
+    private const string SearchPlaceholder = "Поиск по коду или названию…";
     private bool _searchIsPlaceholder = true;
     private readonly List<WasteTypeDto> _displayTypes = [];
 
@@ -104,8 +104,8 @@ public partial class RegisterTab : UserControl, IRefreshableTab
         {
             FkkoCatalogPanel.Visibility = Visibility.Visible;
             RegisterSubtitle.Text = _localCatalog
-                ? $"Справочник: {_wasteTypes.Count} видов отходов (без групп каталога). Поиск — мин. 2 символа."
-                : $"Справочник: {_wasteTypes.Count} видов отходов. Поиск — мин. 2 символа.";
+                ? $"Справочник: {_wasteTypes.Count} видов отходов (без групп каталога). Используйте поле поиска."
+                : $"Справочник: {_wasteTypes.Count} видов отходов. Используйте поле поиска.";
             NameInput.IsReadOnly = true;
             FkkoInput.IsReadOnly = true;
             return;
@@ -148,7 +148,7 @@ public partial class RegisterTab : UserControl, IRefreshableTab
             var query = _searchIsPlaceholder ? "" : SearchInput.Text.Trim();
             if (query.Length < SearchMinLength)
             {
-                WasteList.Items.Add($"Справочник: {_wasteTypes.Count} поз. Введите минимум {SearchMinLength} символа для поиска.");
+                WasteList.Items.Add($"Справочник: {_wasteTypes.Count} поз. Введите в поле поиска часть кода или названия.");
                 return;
             }
 

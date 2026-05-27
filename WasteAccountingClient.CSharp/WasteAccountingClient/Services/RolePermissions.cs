@@ -27,9 +27,9 @@ public static class RolePermissions
     public static bool CanViewControlQueue(string role) =>
         role is "chief" or "ecologist" or "admin";
 
-    /// <summary>PATCH classify / reject</summary>
+    /// <summary>PATCH classify / reject (только эколог; администратор — без решений по классификации).</summary>
     public static bool CanClassifyOrReject(string role) =>
-        role is "ecologist" or "admin";
+        role == "ecologist";
 
     /// <summary>GET /core/waste-types</summary>
     public static bool CanViewFkko(string role) =>

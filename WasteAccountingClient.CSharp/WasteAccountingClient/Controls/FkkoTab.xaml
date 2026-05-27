@@ -4,26 +4,29 @@
              Background="Transparent">
     <DockPanel Margin="4">
         <Border DockPanel.Dock="Top" Style="{StaticResource ToolbarCard}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <TextBlock Text="Справочник ФККО" Style="{StaticResource PageTitle}"/>
-                    <TextBlock Text="Данные загружаются с сервера (GET /core/waste-types)"
-                               Style="{StaticResource PageSubtitle}"/>
-                    <TextBlock x:Name="InfoLabel" Margin="0,10,0,0" FontSize="12"
-                               Foreground="{StaticResource PrimaryDarkBrush}"/>
-                </StackPanel>
-                <Button Grid.Column="1" Content="Обновить" Style="{StaticResource SecondaryButton}"
-                        VerticalAlignment="Center" Click="Refresh_Click"/>
-            </Grid>
+            <StackPanel>
+                <TextBlock Text="Справочник ФККО" Style="{StaticResource PageTitle}"/>
+                <TextBlock Text="Данные с сервера (GET /core/waste-types), обновление при переключении на вкладку и по таймеру"
+                           Style="{StaticResource PageSubtitle}"/>
+                <TextBlock x:Name="InfoLabel" Margin="0,10,0,0" FontSize="12"
+                           Foreground="{StaticResource PrimaryDarkBrush}"/>
+                <Border Background="#f8fafc" CornerRadius="10" Padding="12,10" Margin="0,12,0,0"
+                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                    <WrapPanel VerticalAlignment="Center">
+                        <TextBlock Text="Поиск" Style="{StaticResource FilterLabel}" VerticalAlignment="Center"/>
+                        <TextBox x:Name="SearchInput" Width="320" Height="32" Margin="0,0,12,0"
+                                 VerticalContentAlignment="Center"
+                                 ToolTip="Код, наименование, ФККО, класс"
+                                 TextChanged="SearchInput_TextChanged"/>
+                        <Button Content="Сбросить" Style="{StaticResource SecondaryButton}"
+                                VerticalAlignment="Center" Padding="14,8" Click="ResetSearch_Click"/>
+                    </WrapPanel>
+                </Border>
+            </StackPanel>
         </Border>
         <Border Style="{StaticResource ContentCard}">
             <DataGrid x:Name="FkkoGrid" Style="{StaticResource DataGridStyle}"
                       CanUserSortColumns="False" CanUserReorderColumns="False"/>
-
         </Border>
     </DockPanel>
 </UserControl>

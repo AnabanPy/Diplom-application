@@ -15,10 +15,6 @@
                                Style="{StaticResource PageSubtitle}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock x:Name="ReadOnlyHint" VerticalAlignment="Center"
-                               Text="Только просмотр (начальник)" FontSize="12"
-                               Foreground="{StaticResource TextSecondaryBrush}"
-                               Margin="0,0,12,0" Visibility="Collapsed"/>
                     <Button x:Name="ConfirmButton" Content="Подтвердить" Style="{StaticResource SuccessButton}"
                             Margin="0,0,10,0" Click="Confirm_Click"/>
                     <Button x:Name="RejectButton" Content="Отклонить" Style="{StaticResource DangerButton}"
