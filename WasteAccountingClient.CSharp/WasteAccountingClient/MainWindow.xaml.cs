@@ -14,10 +14,12 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         var user = AppSession.CurrentUser ?? new UserInfo();
+        var role = RolePermissions.NormalizeRole(user.Role);
+
         Title = $"Учёт отходов — {user.FullName}";
         UserNameText.Text = user.FullName;
-        UserRoleText.Text = StatusTranslations.RoleDisplayName(user.Role);
-        UserIcon.Text = user.Role switch
+        UserRoleText.Text = StatusTranslations.RoleDisplayName(role);
+        UserIcon.Text = role switch
         {
             "operator" => "📦",
             "chief" => "👷",
@@ -26,17 +28,26 @@ public partial class MainWindow : Window
             _ => "👤"
         };
 
-        AddTab(new HistoryTab(), "📋 История поступлений");
-        AddTab(new ReportTab(), "📊 Отчеты и аналитика");
+        if (RolePermissions.CanViewHistory(role))
+            AddTab(new HistoryTab(), "📋 История поступлений");
 
-        if (user.Role == "operator")
+        if (RolePermissions.CanRegisterBatch(role))
             AddTab(new RegisterTab(), "➕ Регистрация партии");
 
-        if (user.Role is "chief" or "ecologist" or "admin")
-        {
+        if (RolePermissions.CanViewOperationsTab(role))
+            AddTab(new OperationsTab(), "♻ Операции (переработка/вывоз)");
+
+        if (RolePermissions.CanViewReporting(role))
+            AddTab(new ReportTab(), "📊 Отчёты и аналитика");
+
+        if (RolePermissions.CanViewControlQueue(role))
             AddTab(new ControlTab(), "✅ Контроль классификации");
+
+        if (RolePermissions.CanViewFkko(role))
             AddTab(new FkkoTab(), "📚 Справочник ФККО");
-        }
+
+        if (MainTabs.Items.Count == 0)
+            AddTab(new HistoryTab(), "📋 История поступлений");
     }
 
     private void AddTab(UserControl control, string header)

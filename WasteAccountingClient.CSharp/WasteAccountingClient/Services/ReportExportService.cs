@@ -30,7 +30,8 @@ public static class ReportExportService
         var headers = new[]
         {
             "Код партии", "Наименование отхода", "Класс опасности",
-            "Объем (тонн)", "Код ФККО", "Дата поступления", "Статус", "Цех-источник"
+            "Поступило (т)", "Переработано (т)", "Вывезено (т)", "Остаток (т)",
+            "Код ФККО", "Дата поступления", "Статус", "Цех-источник"
         };
 
         for (var col = 0; col < headers.Length; col++)
@@ -51,10 +52,13 @@ public static class ReportExportService
             ws.Cell(r, 2).Value = batch.Name ?? "";
             ws.Cell(r, 3).Value = StatusTranslations.HazardToRoman(batch.HazardClass);
             ws.Cell(r, 4).Value = batch.VolumeTons ?? 0;
-            ws.Cell(r, 5).Value = batch.FkkoCode ?? "";
-            ws.Cell(r, 6).Value = batch.ReceivedAt?.Length >= 10 ? batch.ReceivedAt[..10] : "";
-            ws.Cell(r, 7).Value = StatusTranslations.ToRu(batch.Status);
-            ws.Cell(r, 8).Value = batch.SourceDepartment ?? "";
+            ws.Cell(r, 5).Value = batch.ProcessedTons ?? 0;
+            ws.Cell(r, 6).Value = batch.DisposedTons ?? 0;
+            ws.Cell(r, 7).Value = batch.RemainingTons ?? 0;
+            ws.Cell(r, 8).Value = batch.FkkoCode ?? "";
+            ws.Cell(r, 9).Value = batch.ReceivedAt?.Length >= 10 ? batch.ReceivedAt[..10] : "";
+            ws.Cell(r, 10).Value = StatusTranslations.ToRu(batch.Status);
+            ws.Cell(r, 11).Value = batch.SourceDepartment ?? "";
         }
 
         ws.Columns().AdjustToContents();

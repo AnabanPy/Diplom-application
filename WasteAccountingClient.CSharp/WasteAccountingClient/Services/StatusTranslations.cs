@@ -63,4 +63,34 @@ public static class StatusTranslations
         "admin" => "Администратор",
         _ => role
     };
+
+    public static string OperationTypeToRu(string? type) => type switch
+    {
+        "processing" => "Переработка",
+        "disposal" => "Утилизация",
+        "export" => "Вывоз",
+        "transfer" => "Передача",
+        "receipt" => "Поступление",
+        "classify" => "Классификация",
+        "reject" => "Отклонение",
+        _ => type ?? "—"
+    };
+
+    public static string UnitToDisplay(string? unit) => unit switch
+    {
+        "t" => "т",
+        "kg" => "кг",
+        "m3" => "м³",
+        "l" => "л",
+        _ => unit ?? "т"
+    };
+
+    public static string UiUnitToApi(string uiUnit) => uiUnit switch
+    {
+        "тонн" => "t",
+        "кг" => "kg",
+        "м³" => "m3",
+        "л" => "l",
+        _ => "t"
+    };
 }

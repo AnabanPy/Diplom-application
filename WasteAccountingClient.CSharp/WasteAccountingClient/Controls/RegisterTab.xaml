@@ -7,7 +7,8 @@
             <Border Style="{StaticResource ToolbarCard}" Margin="0,0,0,12">
                 <StackPanel>
                     <TextBlock Text="Регистрация партии" Style="{StaticResource PageTitle}"/>
-                    <TextBlock Text="Выберите вид отхода из справочника ФККО и укажите параметры партии"
+                    <TextBlock x:Name="RegisterSubtitle"
+                               Text="Выберите вид отхода из справочника ФККО и укажите параметры партии"
                                Style="{StaticResource PageSubtitle}"/>
                 </StackPanel>
             </Border>
@@ -19,7 +20,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0" Style="{StaticResource Card}">
+                <Border x:Name="FkkoCatalogPanel" Grid.Column="0" Style="{StaticResource Card}">
                     <StackPanel>
                         <TextBlock Text="Справочник ФККО" FontWeight="SemiBold" FontSize="14" Margin="0,0,0,12"/>
                         <TextBox x:Name="SearchInput" Margin="0,0,0,10"
@@ -51,10 +52,10 @@
                             <TextBox x:Name="CodeInput" Grid.Row="0" Grid.Column="1" IsReadOnly="True" Margin="0,6"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Наименование" Style="{StaticResource FormLabel}"/>
-                            <TextBox x:Name="NameInput" Grid.Row="1" Grid.Column="1" IsReadOnly="True" Margin="0,6"/>
+                            <TextBox x:Name="NameInput" Grid.Row="1" Grid.Column="1" Margin="0,6"/>
 
                             <TextBlock Grid.Row="2" Grid.Column="0" Text="Код ФККО" Style="{StaticResource FormLabel}"/>
-                            <TextBox x:Name="FkkoInput" Grid.Row="2" Grid.Column="1" IsReadOnly="True" Margin="0,6"/>
+                            <TextBox x:Name="FkkoInput" Grid.Row="2" Grid.Column="1" Margin="0,6"/>
 
                             <TextBlock Grid.Row="3" Grid.Column="0" Text="Класс опасности" Style="{StaticResource FormLabel}"/>
                             <ComboBox x:Name="HazardCombo" Grid.Row="3" Grid.Column="1" Margin="0,6"/>
@@ -73,7 +74,7 @@
                         </Grid>
 
                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                            <Button Content="Зарегистрировать" Style="{StaticResource SuccessButton}"
+                            <Button x:Name="SaveButton" Content="Зарегистрировать" Style="{StaticResource SuccessButton}"
                                     MinWidth="160" Margin="0,0,10,0" Click="Save_Click"/>
                             <Button Content="Очистить" Style="{StaticResource SecondaryButton}"
                                     MinWidth="100" Click="Clear_Click"/>

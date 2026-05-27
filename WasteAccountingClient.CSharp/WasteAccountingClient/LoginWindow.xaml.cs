@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
 using WasteAccountingClient.Models;
+using WasteAccountingClient.Services;
 
 namespace WasteAccountingClient;
 
@@ -23,25 +24,6 @@ public partial class LoginWindow : Window
     {
         if (e.Key == Key.Enter)
             LoginButton_Click(sender, e);
-    }
-
-    private void QuickLoginOperator_Click(object sender, RoutedEventArgs e)
-    {
-        FillCredentials("operator@example.com", "123546");
-        LoginButton_Click(sender, e);
-    }
-
-    private void QuickLoginChief_Click(object sender, RoutedEventArgs e)
-    {
-        FillCredentials("chief@example.com", "123546");
-        LoginButton_Click(sender, e);
-    }
-
-    private void FillCredentials(string email, string password)
-    {
-        EmailInput.Text = email;
-        PasswordInput.Password = password;
-        HideError();
     }
 
     private void ShowError(string message)
@@ -75,11 +57,16 @@ public partial class LoginWindow : Window
             var result = await AppSession.Client.LoginAsync(email, password);
             if (result != null)
             {
+                var profile = await AppSession.Client.GetCurrentUserAsync();
+                var role = RolePermissions.NormalizeRole(profile?.Role ?? result.Role);
+                if (string.IsNullOrEmpty(role))
+                    role = InferRoleFromEmail(email);
+
                 AppSession.CurrentUser = new UserInfo
                 {
                     Login = email,
-                    FullName = result.FullName ?? email.Split('@')[0],
-                    Role = result.Role ?? "operator"
+                    FullName = profile?.FullName ?? result.FullName ?? email.Split('@')[0],
+                    Role = role
                 };
 
                 var main = new MainWindow();
@@ -102,7 +89,20 @@ public partial class LoginWindow : Window
         finally
         {
             LoginButton.IsEnabled = true;
-            LoginButton.Content = "Войти";
+            LoginButton.Content = "Войти в систему";
         }
+    }
+
+    private static string InferRoleFromEmail(string email)
+    {
+        var local = email.Split('@')[0].ToLowerInvariant();
+        return local switch
+        {
+            "operator" => "operator",
+            "chief" => "chief",
+            "ecologist" => "ecologist",
+            "admin" => "admin",
+            _ => "operator"
+        };
     }
 }

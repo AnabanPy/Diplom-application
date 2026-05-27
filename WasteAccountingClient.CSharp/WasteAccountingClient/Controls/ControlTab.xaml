@@ -15,10 +15,16 @@
                                Style="{StaticResource PageSubtitle}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button Content="Подтвердить" Style="{StaticResource SuccessButton}"
+                    <TextBlock x:Name="ReadOnlyHint" VerticalAlignment="Center"
+                               Text="Только просмотр (начальник)" FontSize="12"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               Margin="0,0,12,0" Visibility="Collapsed"/>
+                    <Button x:Name="ConfirmButton" Content="Подтвердить" Style="{StaticResource SuccessButton}"
                             Margin="0,0,10,0" Click="Confirm_Click"/>
-                    <Button Content="Отклонить" Style="{StaticResource DangerButton}"
-                            Click="Reject_Click"/>
+                    <Button x:Name="RejectButton" Content="Отклонить" Style="{StaticResource DangerButton}"
+                            Margin="0,0,10,0" Click="Reject_Click"/>
+                    <Button Content="История" Style="{StaticResource SecondaryButton}"
+                            Click="History_Click"/>
                 </StackPanel>
             </Grid>
         </Border>

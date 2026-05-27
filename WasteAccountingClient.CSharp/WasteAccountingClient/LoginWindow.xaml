@@ -2,24 +2,19 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Вход в систему"
-        Height="540" Width="480"
+        SizeToContent="Height"
+        Width="480"
+        MinHeight="460"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         ShowInTaskbar="True"
         Background="#e8f4f3">
-    <Grid>
-        <Border Background="White" CornerRadius="20" Margin="24"
+    <Grid Margin="24">
+        <Border Background="White" CornerRadius="20"
                 BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
-                VerticalAlignment="Center" HorizontalAlignment="Center"
                 Width="432">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Border Grid.Row="0" Background="{StaticResource HeaderGradient}"
+            <StackPanel>
+                <Border Background="{StaticResource HeaderGradient}"
                         CornerRadius="20,20,0,0" Padding="24,26,24,22">
                     <StackPanel HorizontalAlignment="Center">
                         <Border Width="64" Height="64" CornerRadius="32" Background="#ffffff28" Margin="0,0,0,14">
@@ -31,7 +26,7 @@
                     </StackPanel>
                 </Border>
 
-                <StackPanel Grid.Row="1" Margin="28,26,28,0">
+                <StackPanel Margin="28,26,28,24">
                     <TextBlock x:Name="ErrorText" Foreground="{StaticResource DangerBrush}"
                                FontSize="12" TextWrapping="Wrap" Margin="0,0,0,12"
                                Visibility="Collapsed"/>
@@ -48,83 +43,8 @@
                     <Button x:Name="LoginButton" Content="Войти в систему"
                             Style="{StaticResource PrimaryButton}" Height="46"
                             Click="LoginButton_Click"/>
-
-                    <TextBlock Text="Быстрый вход для демонстрации"
-                               FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"
-                               HorizontalAlignment="Center" Margin="0,20,0,10"/>
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Click="QuickLoginOperator_Click" Cursor="Hand">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="Bd" Background="#f0fdfa" BorderBrush="#99f6e4"
-                                                        BorderThickness="1" CornerRadius="12" Padding="14,12">
-                                                    <StackPanel>
-                                                        <TextBlock Text="📦" FontSize="20" HorizontalAlignment="Center"/>
-                                                        <TextBlock Text="Оператор" FontWeight="SemiBold" FontSize="13"
-                                                                   Foreground="{StaticResource PrimaryDarkBrush}"
-                                                                   HorizontalAlignment="Center" Margin="0,6,0,2"/>
-                                                        <TextBlock Text="operator@example.com" FontSize="10"
-                                                                   Foreground="{StaticResource TextSecondaryBrush}"
-                                                                   HorizontalAlignment="Center"/>
-                                                    </StackPanel>
-                                                </Border>
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter TargetName="Bd" Property="Background" Value="#ccfbf1"/>
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </Button.Style>
-                        </Button>
-                        <Button Grid.Column="2" Click="QuickLoginChief_Click" Cursor="Hand">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="Bd" Background="#f0f9ff" BorderBrush="#bae6fd"
-                                                        BorderThickness="1" CornerRadius="12" Padding="14,12">
-                                                    <StackPanel>
-                                                        <TextBlock Text="👷" FontSize="20" HorizontalAlignment="Center"/>
-                                                        <TextBlock Text="Начальник" FontWeight="SemiBold" FontSize="13"
-                                                                   Foreground="#0369a1"
-                                                                   HorizontalAlignment="Center" Margin="0,6,0,2"/>
-                                                        <TextBlock Text="chief@example.com" FontSize="10"
-                                                                   Foreground="{StaticResource TextSecondaryBrush}"
-                                                                   HorizontalAlignment="Center"/>
-                                                    </StackPanel>
-                                                </Border>
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter TargetName="Bd" Property="Background" Value="#e0f2fe"/>
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </Button.Style>
-                        </Button>
-                    </Grid>
                 </StackPanel>
-
-                <TextBlock Grid.Row="2" Text="Пароли учётных записей — см. README.md"
-                           FontSize="10" Foreground="{StaticResource TextSecondaryBrush}"
-                           HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                           Margin="0,0,0,18"/>
-            </Grid>
+            </StackPanel>
         </Border>
     </Grid>
 </Window>

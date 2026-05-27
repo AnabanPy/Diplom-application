@@ -15,6 +15,7 @@ obj/
 
 # Готовая сборка для GitHub лежит в dist/ — коммитим
 # (глобально *.exe/*.dll не игнорируем: иначе dist не попадёт в репозиторий)
+*.pdb
 
 # IDE
 .idea/
@@ -25,5 +26,7 @@ Thumbs.db
 Desktop.ini
 .DS_Store
 
-# Отчёты (локальные экспорты, не в репозиторий)
-Отчеты/
+# Большие полные выгрузки — локально / для бэкенда, не в git
+WasteAccountingClient.CSharp/data/fkko_full.json
+WasteAccountingClient.CSharp/data/fkko_full.csv
+WasteAccountingClient.CSharp/data/fkko_operator.json

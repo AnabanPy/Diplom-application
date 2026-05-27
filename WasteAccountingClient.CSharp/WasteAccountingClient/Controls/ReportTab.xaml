@@ -17,8 +17,18 @@
                         <TextBlock Text="Дата до" Style="{StaticResource FilterLabel}"/>
                         <DatePicker x:Name="DateTo" Width="140" Margin="0,0,20,0"/>
                         <TextBlock Text="Статус" Style="{StaticResource FilterLabel}"/>
-                        <ComboBox x:Name="StatusCombo" Width="180" Margin="0,0,0,0"/>
+                        <ComboBox x:Name="StatusCombo" Width="160" Margin="0,0,20,0"
+                                  SelectionChanged="Filter_Changed"/>
+                        <TextBlock Text="Цех" Style="{StaticResource FilterLabel}"/>
+                        <ComboBox x:Name="DepartmentCombo" Width="160" Margin="0,0,0,0"
+                                  SelectionChanged="Filter_Changed"/>
                     </WrapPanel>
+                </Border>
+
+                <Border x:Name="DashboardPanel" Background="#ecfdf5" CornerRadius="8" Padding="12,8"
+                        Margin="0,12,0,0" BorderBrush="#6ee7b7" BorderThickness="1">
+                    <TextBlock x:Name="DashboardText" FontSize="12" TextWrapping="Wrap"
+                               Foreground="{StaticResource PrimaryDarkBrush}"/>
                 </Border>
 
                 <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
